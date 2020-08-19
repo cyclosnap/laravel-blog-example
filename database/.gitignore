@@ -1,0 +1,3 @@
+# typically would exclude .sqlite files, but this is an example
+# *.sqlite
+*.sqlite-journal
