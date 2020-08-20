@@ -1,3 +1,3 @@
 ### Laravel blog example
 
-Just a simple blog crud project
+Just a simple blog crud example

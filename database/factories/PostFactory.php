@@ -9,5 +9,6 @@ $factory->define(Post::class, function (Faker $faker) {
     return [
         'title' => $faker->sentence,
         'body' => join("\n", $faker->paragraphs(6)),
+        'created_at' => $faker->dateTimeThisYear,
     ];
 });

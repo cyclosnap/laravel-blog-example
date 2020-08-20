@@ -1,8 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use Illuminate\Http\Request;
+use App\Post;
 
 class HomeController extends Controller
 {
@@ -13,7 +12,16 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth')->except('welcome');
+    }
+
+    /**
+     * Default not-logged in route:
+     */
+    public function welcome()
+    {
+        $posts = Post::orderBy('created_at', 'desc')->paginate(15);
+        return view('welcome', ['posts' => $posts]);
     }
 
     /**
