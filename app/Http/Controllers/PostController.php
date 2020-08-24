@@ -91,6 +91,11 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        //checks policy
+        $this->authorize('delete', $post);
+        $post->delete();
+        return redirect()
+            ->route('welcome')
+            ->with('alert', 'Delted post '. $post->id);
     }
 }

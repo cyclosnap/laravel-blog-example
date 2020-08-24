@@ -19,5 +19,16 @@ $paragraphs = explode("\n", $post->body);
         <a href="{{route('posts.show', ['post' => $post->id])}}" class="btn btn-light">
             View Post
         </a>
+        {{-- @can('update', $post) --}}
+            <a href="{{route('posts.edit', ['post' => $post->id])}}" class="btn btn-secondary">
+                Edit Post
+            </a>
+            <form style="display: inline-block" method="post" action="{{route('posts.destroy', ['post' => $post->id])}}">
+                <button class="btn btn-danger">Delete</button>
+                @method('DELETE')
+                @csrf
+            </form>
+        {{-- @endcan --}}
+
     </div>
 </div>
