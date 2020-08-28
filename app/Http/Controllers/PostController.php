@@ -95,7 +95,7 @@ class PostController extends Controller
         $this->authorize('delete', $post);
         $post->delete();
         return redirect()
-            ->route('welcome')
-            ->with('alert', 'Delted post '. $post->id);
+            ->route('home')
+            ->with('alert', 'Post Deleted!');
     }
 }

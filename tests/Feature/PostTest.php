@@ -20,6 +20,8 @@ class PostTest extends TestCase
     {
 
         $user = factory(User::class)->create();
+        $this->assertDatabaseHas('users', ['email' => $user->email]);
+
         $otherUser = factory(User::class)->create();
 
         $userPost = factory(Post::class)->create([
@@ -34,9 +36,11 @@ class PostTest extends TestCase
         $this->assertDatabaseCount('posts', 2);
 
         auth()->login($user);
-        
-        //should fail, so same # posts exists
+
+        //should not be able to delete someone else's posts
+        //try
         $response = $this->delete("posts/2");
+        //fail
         $this->assertDatabaseCount('posts', 2);
         $response->assertStatus(403);
 
