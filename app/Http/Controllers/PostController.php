@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Post;
 use Illuminate\Http\Request;
+use App\Http\Requests\StorePost;
 
 class PostController extends Controller
 {
@@ -35,7 +36,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('posts.create');
     }
 
     /**
@@ -44,9 +45,20 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StorePost $request)
     {
-        //
+        //uses separate Request validation class App\Http\Requests\StorePost
+        $validated = $request->validated();
+
+        $post = new Post;
+        //fill method checks mass assignment params in model class
+        $post->fill($validated);
+        $post->user_id = auth()->user()->id;
+        $post->save();
+        
+        return redirect()
+            ->route('home')
+            ->with('alert', 'New Post Created');
     }
 
     /**
